@@ -7,7 +7,7 @@ namespace ConsoleTest.Classes
 {
     public class Reporting
     {
-        private readonly List<Transaction> transactions;
+        private readonly List<ITransaction> transactions;
         private readonly IWarehouse warehouse;
         private const string DateFormat = "yyyy-MM-dd HH:mm:ss";
         private const string SeparatorLine = "================================================";
@@ -16,7 +16,7 @@ namespace ConsoleTest.Classes
         public Reporting(IWarehouse warehouse)
         {
             this.warehouse = warehouse;
-            transactions = new List<Transaction>();
+            transactions = new List<ITransaction>();
         }
 
         public string RegisterInboundTransaction(IProduct product, int quantity)
@@ -38,7 +38,7 @@ namespace ConsoleTest.Classes
             throw new InvalidOperationException("Insufficient stock for outbound transaction");
         }
 
-        public IEnumerable<Transaction> GetTransactionHistory()
+        public IEnumerable<ITransaction> GetTransactionHistory()
         {
             return transactions.OrderByDescending(t => t.Timestamp).ToList();
         }
@@ -65,7 +65,7 @@ namespace ConsoleTest.Classes
                    $"Category: {item.Product.Category}\n" +
                    $"Quantity: {item.Quantity} {item.UnitOfMeasure}\n" +
                    $"Unit Price: {item.Product.Price}\n" +
-                   $"Last Restock: {item.LastRestockDate:DateFormat}\n";
+                   $"Last Restock: {item.LastRestockDate.ToString(DateFormat)}\n";
         }
     }
 } 

@@ -44,23 +44,9 @@ namespace ConsoleTest.Classes
             return true;
         }
 
-        public IInventoryItem GetInventoryItem(string sku)
-        {
-            return inventory.TryGetValue(sku, out var item) ? item : null;
-        }
-
         public IEnumerable<IInventoryItem> GetAllInventory()
         {
             return inventory.Values.ToList();
-        }
-
-        public void UpdateStock(string sku, int quantity)
-        {
-            if (inventory.ContainsKey(sku))
-            {
-                inventory[sku].Quantity = quantity;
-                inventory[sku].LastRestockDate = System.DateTime.Now;
-            }
         }
     }
 } 

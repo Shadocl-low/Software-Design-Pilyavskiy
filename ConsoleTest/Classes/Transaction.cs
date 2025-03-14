@@ -9,7 +9,7 @@ namespace ConsoleTest.Classes
         Outbound
     }
 
-    public class Transaction
+    public class Transaction : ITransaction
     {
         public string TransactionId { get; }
         public DateTime Timestamp { get; }
