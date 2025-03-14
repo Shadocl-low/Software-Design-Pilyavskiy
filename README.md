@@ -32,7 +32,7 @@ A class should not be forced to depend on interfaces they don't use.
 ### 5. Dependency Inversion Principle (DIP)
 High-level modules should not depend on low-level modules. Both should depend on abstractions.
 1. Product depends on [Money](ConsoleTest/Classes/Money.cs), so `Money` was replaces into [IMoney](ConsoleTest/Classes/IMoney.cs). In that way `Product` depend on abstraction.
-2. Same for [Reporting](ConsoleTest/Classes/Reporting.cs#L11), [Warehouse](ConsoleTest/Classes/Warehouse.cs#L7-L9), [InventoryItem](ConsoleTest/Classes/InventoryItem.cs#L6-L8). They depend on abstraction [IWarehouse](ConsoleTest/Classes/IWarehouse.cs), [IInventoryItem](ConsoleTest/Classes/IInventoryItem.cs), [IProduct](ConsoleTest/Classes/IProduct.cs).
+2. Same for [Reporting](ConsoleTest/Classes/Reporting.cs#L11), [Warehouse](ConsoleTest/Classes/Warehouse.cs#L7-L9), [InventoryItem](ConsoleTest/Classes/InventoryItem.cs#L6-L8). They depend on abstraction [IWarehouse](ConsoleTest/Interfaces/IWarehouse.cs), [IInventoryItem](ConsoleTest/Interfaces/IInventoryItem.cs), [IProduct](ConsoleTest/Interfaces/IProduct.cs).
 
 ## Other Programming Principles
 
