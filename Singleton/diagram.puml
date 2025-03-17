@@ -1,0 +1,25 @@
+@startuml Singleton Pattern
+
+class Authenticator {
+    - static volatile Authenticator _instance
+    - static readonly object _lock
+    - Authenticator()
+    + static Authenticator GetInstance()
+    + void Authenticate(string username, string password)
+}
+
+class Program {
+    + static void Main(string[] args)
+}
+
+Program --> Authenticator : uses
+
+note right of Authenticator
+  Singleton Pattern:
+  - Private constructor
+  - Static instance
+  - Thread-safe
+  - Double-checked locking
+end note
+
+@enduml 
