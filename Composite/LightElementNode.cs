@@ -9,6 +9,7 @@ namespace Composite
         private ClosingType Closing { get; }
         private List<string> CssClasses { get; }
         private List<LightNode> Children { get; }
+        public EventManager Events { get; }
 
         public LightElementNode(string tagName, DisplayType display, ClosingType closing)
         {
@@ -17,16 +18,23 @@ namespace Composite
             Closing = closing;
             CssClasses = new List<string>();
             Children = new List<LightNode>();
+            Events = new EventManager();
         }
 
         public void AddClass(string className)
         {
             CssClasses.Add(className);
+            Events.Notify(EventType.AddClass, $"Was added class {className} on <{TagName}>");
+        }
+        public void RemoveClass(string className)
+        {
+            CssClasses.Remove(className);
         }
 
         public void AddChild(LightNode node)
         {
             Children.Add(node);
+            Events.Notify(EventType.AddChild, $"Was added child to {TagName}");
         }
 
         public int ChildCount => Children.Count;
@@ -50,6 +58,29 @@ namespace Composite
             string childrenHTML = string.Join("\n", Children.Select(child => child.OuterHTML(indentLevel + 1)));
 
             return $"{indent}{openingTag}\n{childrenHTML}\n{indent}{closingTag}";
+        }
+
+        public void ClickTag()
+        {
+            var eventInfo = $"<{TagName}> was clicked. ";
+
+            if (!CssClasses.Contains("active"))
+            {
+                AddClass("active");
+                eventInfo += $"<{TagName}> is now active";
+            }
+            else
+            {
+                RemoveClass("active");
+                eventInfo += $"<{TagName}> is now inactive";
+            }
+
+            Events.Notify(EventType.Click, eventInfo);
+        }
+
+        public void AddEventListner(EventType eventType, IEventListener listener)
+        {
+            Events.Subscribe(eventType, listener);
         }
     }
 }

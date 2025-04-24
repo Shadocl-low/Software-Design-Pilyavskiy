@@ -47,10 +47,40 @@ dataRow2.AddChild(td4);
 table.AddChild(dataRow2);
 
 var a = new LightElementNode("a", DisplayType.Block, ClosingType.SelfClosing);
-a.AddClass("active");
+a.AddClass("colorful");
+
+var section = new LightElementNode("section", DisplayType.Block, ClosingType.Paired);
+section.AddChild(new LightTextNode("New section"));
 
 div.AddChild(table);
 div.AddChild(a);
+
+// Вивід
+Console.WriteLine(div.OuterHTML());
+
+var clickLogger = new ConsoleLogListener("[ClickLogger]");
+var addClassLogger = new ConsoleLogListener("[AddClassLogger]");
+var addChildLogger = new ConsoleLogListener("[AddChildLogger]");
+
+// Підпис на події
+div.AddEventListner(EventType.Click, clickLogger);
+div.AddEventListner(EventType.AddClass, addClassLogger);
+div.AddEventListner(EventType.AddChild, addChildLogger);
+
+a.AddEventListner(EventType.AddClass, addClassLogger);
+a.AddEventListner(EventType.Click, clickLogger);
+
+section.AddEventListner(EventType.AddClass, addClassLogger);
+
+// Робота з тегами
+div.ClickTag();
+
+a.ClickTag();
+a.ClickTag();
+
+div.AddChild(section);
+
+section.AddClass("section-view");
 
 // Вивід
 Console.WriteLine(div.OuterHTML());

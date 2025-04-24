@@ -7,3 +7,6 @@
 [LOG] This is a log message to file.
 [ERROR] This is an error message to file.
 [WARNING] This is a warning message to file.
+[LOG] This is a log message to file.
+[ERROR] This is an error message to file.
+[WARNING] This is a warning message to file.
