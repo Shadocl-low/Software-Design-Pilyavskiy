@@ -54,3 +54,11 @@ div.AddChild(a);
 
 // Вивід
 Console.WriteLine(div.OuterHTML());
+
+var fileImg = new LightImageNode("https://example.com/banner.jpg");
+var netImg = new LightImageNode("images/logo.png");
+
+div.AddChild(fileImg);
+div.AddChild(netImg);
+
+Console.WriteLine(div.OuterHTML());

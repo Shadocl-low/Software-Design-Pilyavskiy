@@ -16,7 +16,7 @@ namespace Composite
         {
             TextContent = text;
         }
-        public override string OuterHTML(int indentLevel = 0) => new string(' ', indentLevel * 4) + TextContent;
+        public override string OuterHTML(int indentLevel = 0) => new string(' ', indentLevel * indentStrenght) + TextContent;
         public override string InnerHTML => TextContent;
     }
 }

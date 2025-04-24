@@ -35,7 +35,7 @@ namespace Composite
 
         public override string OuterHTML(int indentLevel = 0)
         {
-            string indent = new string(' ', indentLevel * 4);
+            string indent = new string(' ', indentLevel * indentStrenght);
 
             string classString = CssClasses.Count > 0 ? $" class=\"{string.Join(" ", CssClasses)}\"" : "";
 
