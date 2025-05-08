@@ -1,8 +1,10 @@
 ﻿using Composite.Enums;
+using Composite.Iterators;
+using System.Collections;
 
 namespace Composite
 {
-    public class LightElementNode : LightNode
+    public class LightElementNode : LightNode, LightNodeAggregate
     {
         private string TagName { get; }
         private DisplayType Display { get; }
@@ -51,5 +53,15 @@ namespace Composite
 
             return $"{indent}{openingTag}\n{childrenHTML}\n{indent}{closingTag}";
         }
+        public IEnumerator GetEnumerator() => GetDepthFirstEnumerator();
+        public IEnumerator GetDepthFirstEnumerator()
+        {
+            return new DepthFirstIterator(this);
+        }
+        public IEnumerator GetBreadthFirstEnumerator()
+        {
+            return new BreadthFirstIterator(this);
+        }
+        public LightNode GetChild(int index) => Children[index];
     }
 }
