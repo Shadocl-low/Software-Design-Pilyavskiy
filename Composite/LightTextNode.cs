@@ -16,13 +16,17 @@ namespace Composite
         {
             TextContent = text;
 
-            dom.AddNode(this);
+            DomEditor.AddNode(this);
         }
         public override string OuterHTML(int indentLevel = 0) => new string(' ', indentLevel * 4) + TextContent;
         public override string InnerHTML => TextContent;
         public void SetTextContent(string text)
         {
             TextContent = text;
+        }
+        public override string ToString()
+        {
+            return $"Text - {TextContent}";
         }
     }
 }

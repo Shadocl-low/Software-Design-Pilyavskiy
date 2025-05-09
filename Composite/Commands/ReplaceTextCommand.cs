@@ -29,5 +29,9 @@ namespace Composite.Commands
         {
             Node.SetTextContent(OldText);
         }
+        public override string ToString()
+        {
+            return $"Command: Replace Text";
+        }
     }
 }

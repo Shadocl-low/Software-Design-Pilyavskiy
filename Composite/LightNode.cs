@@ -8,7 +8,6 @@ namespace Composite
 {
     public abstract class LightNode
     {
-        public DomEditor dom = new();
         public abstract string OuterHTML(int indentLevel = 0);
         public abstract string InnerHTML { get; }
     }

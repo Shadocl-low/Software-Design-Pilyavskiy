@@ -26,5 +26,9 @@ namespace Composite.Commands
         {
             Nodes.Remove(Node);
         }
+        public override string ToString()
+        {
+            return $"Command: Add Node";
+        }
     }
 }

@@ -25,5 +25,14 @@ namespace Composite
         {
             History.Push(command);
         }
+
+        public static void ShowHistoryConsole()
+        {
+            Console.WriteLine($"\nHistory:");
+            foreach (var item in History)
+            {
+                Console.WriteLine(item);
+            }
+        }
     }
 }

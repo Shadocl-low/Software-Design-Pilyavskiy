@@ -1,4 +1,5 @@
 ﻿using Composite.Enums;
+using System;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Composite
@@ -19,7 +20,7 @@ namespace Composite
             CssClasses = new List<string>();
             Children = new List<LightNode>();
 
-            dom.AddNode(this);
+            DomEditor.AddNode(this);
         }
 
         public void AddClass(string className)
@@ -76,6 +77,12 @@ namespace Composite
             string childrenHTML = string.Join("\n", Children.Select(child => child.OuterHTML(indentLevel + 1)));
 
             return $"{indent}{openingTag}\n{childrenHTML}\n{indent}{closingTag}";
+        }
+        public override string ToString()
+        {
+            string classString = CssClasses.Count > 0 ? $" class=\"{string.Join(" ", CssClasses)}\"" : "";
+
+            return $"Element - {TagName}{classString}";
         }
     }
 }

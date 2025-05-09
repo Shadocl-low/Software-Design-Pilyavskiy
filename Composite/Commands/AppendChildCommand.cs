@@ -26,5 +26,9 @@ namespace Composite.Commands
         {
             Parent.RemoveChild(Child);
         }
+        public override string ToString()
+        {
+            return $"Command: Append Child";
+        }
     }
 }

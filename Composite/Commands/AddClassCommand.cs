@@ -27,5 +27,9 @@ namespace Composite.Commands
         {
             Node.RemoveClass(ClassName);
         }
+        public override string ToString()
+        {
+            return $"Command: Add Class";
+        }
     }
 }
