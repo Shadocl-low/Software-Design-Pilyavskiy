@@ -15,6 +15,8 @@ namespace Composite
         public LightTextNode(string text)
         {
             TextContent = text;
+
+            dom.AddNode(this);
         }
         public override string OuterHTML(int indentLevel = 0) => new string(' ', indentLevel * 4) + TextContent;
         public override string InnerHTML => TextContent;

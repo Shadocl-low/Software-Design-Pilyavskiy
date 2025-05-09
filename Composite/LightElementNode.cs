@@ -1,4 +1,5 @@
 ﻿using Composite.Enums;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Composite
 {
@@ -17,6 +18,8 @@ namespace Composite
             Closing = closing;
             CssClasses = new List<string>();
             Children = new List<LightNode>();
+
+            dom.AddNode(this);
         }
 
         public void AddClass(string className)
@@ -31,14 +34,25 @@ namespace Composite
         {
             return CssClasses.Contains(className);
         }
-
         public void AddChild(LightNode node)
         {
             Children.Add(node);
         }
+        public void AddChild(int index, LightNode node)
+        {
+            Children.Insert(index, node);
+        }
         public void RemoveChild(LightNode node)
         {
             Children.Remove(node);
+        }
+        public void RemoveChild(int index)
+        {
+            Children.RemoveAt(index);
+        }
+        public int IndexOfChild(LightNode node)
+        {
+            return Children.IndexOf(node);
         }
 
         public int ChildCount => Children.Count;

@@ -9,7 +9,6 @@ namespace Composite
 {
     public class DomEditor
     {
-        private Stack<ICommand> History = new Stack<ICommand>();
         private List<LightNode> Container = new List<LightNode>();
 
         public void AddNode(LightNode node)
@@ -35,15 +34,12 @@ namespace Composite
         public void ExecuteCommand(ICommand command)
         {
             command.Execute();
-            History.Push(command);
+            CommandsHistory.Push(command);
         }
         public void Undo()
         {
-            if (History.Count > 0)
-            {
-                var command = History.Pop();
-                command.Undo();
-            }
+            var command = CommandsHistory.Pop();
+            command?.Undo();
         }
     }
 }

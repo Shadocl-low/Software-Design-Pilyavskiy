@@ -3,7 +3,7 @@ using Composite;
 
 var dom = new DomEditor();
 
-dom.AddNode(new LightElementNode("div", DisplayType.Block, ClosingType.Paired));
+var div = new LightElementNode("div", DisplayType.Block, ClosingType.Paired);
 
 var table = new LightElementNode("table", DisplayType.Block, ClosingType.Paired);
 table.AddClass("data-table");

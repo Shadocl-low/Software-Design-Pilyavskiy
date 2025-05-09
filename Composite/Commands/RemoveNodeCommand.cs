@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Composite.Commands
 {
@@ -12,21 +14,51 @@ namespace Composite.Commands
         private LightNode Node;
         private int Index;
 
+        private LightElementNode? ParentElement;
+        private int ChildIndex = -1;
+
         public RemoveNodeCommand(List<LightNode> nodes, LightNode node)
         {
             Nodes = nodes;
             Node = node;
+
+            foreach (var potentialParent in nodes.OfType<LightElementNode>())
+            {
+                int idx = potentialParent.IndexOfChild(node);
+                if (idx >= 0)
+                {
+                    ParentElement = potentialParent;
+                    ChildIndex = idx;
+                    break;
+                }
+            }
         }
 
         public void Execute()
         {
             Index = Nodes.IndexOf(Node);
-            if (Index >= 0) Nodes.RemoveAt(Index);
+            if (Index >= 0)
+            {
+                Nodes.RemoveAt(Index);
+            }
+
+            if (ParentElement != null && ChildIndex >= 0)
+            {
+                ParentElement.RemoveChildByIndex(ChildIndex);
+            }
         }
 
         public void Undo()
         {
-            Nodes.Insert(Index, Node);
+            if (Index >= 0)
+            {
+                Nodes.Insert(Index, Node);
+            }
+
+            if (ParentElement != null && ChildIndex >= 0)
+            {
+                ParentElement.AddChildByIndex(ChildIndex, Node);
+            }
         }
     }
 }
