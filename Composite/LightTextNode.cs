@@ -10,7 +10,7 @@ namespace Composite
 {
     public class LightTextNode : LightNode
     {
-        private string TextContent { get; }
+        public string TextContent { get; private set; }
 
         public LightTextNode(string text)
         {
@@ -18,5 +18,9 @@ namespace Composite
         }
         public override string OuterHTML(int indentLevel = 0) => new string(' ', indentLevel * 4) + TextContent;
         public override string InnerHTML => TextContent;
+        public void SetTextContent(string text)
+        {
+            TextContent = text;
+        }
     }
 }

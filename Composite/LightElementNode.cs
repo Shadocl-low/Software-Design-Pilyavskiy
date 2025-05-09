@@ -28,6 +28,10 @@ namespace Composite
         {
             Children.Add(node);
         }
+        public void RemoveChild(LightNode node)
+        {
+            Children.Remove(node);
+        }
 
         public int ChildCount => Children.Count;
 
