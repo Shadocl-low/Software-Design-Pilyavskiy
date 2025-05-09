@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Composite.States
 {
-    public abstract class EditState
+    public abstract class EditState : IDoStateActions
     {
         protected LightNode Node;
+        protected ConsoleColor ErrorColor = ConsoleColor.Red;
+        protected ConsoleColor SuccessColor = ConsoleColor.Green;
         public EditState(LightNode node) => Node = node;
 
         public void SetNode(LightNode node)
@@ -18,13 +20,13 @@ namespace Composite.States
         public abstract void AddClass(string className);
         public abstract void RemoveClass(string className);
         public abstract void AddChild(LightNode node);
-        public abstract void AddChild(int index, LightNode node);
+        public abstract void AddChildByIndex(int index, LightNode node);
         public abstract void RemoveChild(LightNode node);
-        public abstract void RemoveChild(int index);
+        public abstract void RemoveChildByIndex(int index);
         public abstract void SetTextContent(string text);
-        protected void WriteError(string message)
+        protected void WriteColoredMessage(string message, ConsoleColor color = ConsoleColor.Gray)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = color;
             Console.WriteLine(message);
             Console.ForegroundColor = ConsoleColor.Gray;
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Composite
 {
-    public abstract class LightNode
+    public abstract class LightNode : IDoStateActions
     {
         public abstract string OuterHTML(int indentLevel = 0);
         public abstract string InnerHTML { get; }
@@ -24,5 +24,25 @@ namespace Composite
         {
             State = state;
         }
+        public void SetEditableState()
+        {
+            State = new EditableState(this);
+        }
+        public void SetReadOnlyState()
+        {
+            State = new ReadOnlyState(this);
+        }
+        public void SetLockedState(User user)
+        {
+            State = new LockedState(this, user);
+        }
+
+        public virtual void AddClass(string className) { }
+        public virtual void RemoveClass(string className) { }
+        public virtual void AddChild(LightNode node) { }
+        public virtual void AddChildByIndex(int index, LightNode node) { }
+        public virtual void RemoveChild(LightNode node) { }
+        public virtual void RemoveChildByIndex(int index) { }
+        public virtual void SetTextContent(string text) { }
     }
 }

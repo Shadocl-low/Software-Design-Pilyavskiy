@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,48 +16,69 @@ namespace Composite.States
         public LockedState(LightNode node, User user) : base(node) => StateUser = user;
         public override void AddChild(LightNode node)
         {
-            HandleAutorization($"Node is locked, please autorize as admin. Cannot add child.");
+            HandleAutorization(lnode: node, errorMessage: $"Node is locked, please autorize as admin. Cannot add child.");
         }
 
-        public override void AddChild(int index, LightNode node)
+        public override void AddChildByIndex(int index, LightNode node)
         {
-            HandleAutorization($"Node is locked, please autorize as admin. Cannot add child with id.");
+            HandleAutorization(index: index, lnode: node, errorMessage: $"Node is locked, please autorize as admin. Cannot add child with id.");
         }
 
         public override void AddClass(string className)
         {
-            HandleAutorization($"Node is locked, please autorize as admin. Cannot add class.");
+            HandleAutorization(str: className, errorMessage: $"Node is locked, please autorize as admin. Cannot add class.");
         }
 
         public override void RemoveClass(string className)
         {
-            HandleAutorization($"Node is locked, please autorize as admin. Cannot remove class.");
+            HandleAutorization(str: className, errorMessage: $"Node is locked, please autorize as admin. Cannot remove class.");
         }
 
         public override void RemoveChild(LightNode node)
         {
-            HandleAutorization($"Node is locked, please autorize as admin. Cannot remove child.");
+            HandleAutorization(lnode: node, errorMessage: $"Node is locked, please autorize as admin. Cannot remove child.");
         }
 
-        public override void RemoveChild(int index)
+        public override void RemoveChildByIndex(int index)
         {
-            HandleAutorization($"Node is locked, please autorize as admin. Cannot remove child with id.");
+            HandleAutorization(index: index, errorMessage: $"Node is locked, please autorize as admin. Cannot remove child with id.");
         }
 
         public override void SetTextContent(string text)
         {
-            HandleAutorization($"Node is locked, please autorize as admin. Cannot set text content.");
+            HandleAutorization(str: text, errorMessage: $"Node is locked, please autorize as admin. Cannot set text content.");
         }
         public void CheckAutorization()
-        {                    
+        {
             Locked = !StateUser.Autorize();
         }
-        private void HandleAutorization(string message)
+        private void HandleAutorization(string errorMessage, string? str = null, int? index = null, LightNode? lnode = null, [CallerMemberName] string caller = "")
         {
             CheckAutorization();
 
-            if (Locked) WriteError(message);
-            else Node.SetState(new EditableState(Node));
+            if (Locked) WriteColoredMessage(errorMessage, ErrorColor);
+            else
+            {
+                WriteColoredMessage($"Autorization successful, state was changed to Editable", SuccessColor);
+
+                Node.SetEditableState();
+
+                var argumentValues = GetMethodArguments(str, index, lnode);
+
+                var method = Node.GetType().GetMethod(caller);
+
+                method?.Invoke(Node, argumentValues);
+            }
+        }
+        private object[] GetMethodArguments(string? str, int? index, LightNode? lnode)
+        {
+            var arguments = new List<object>();
+
+            if (str != null) arguments.Add(str);
+            else if (index.HasValue) arguments.Add(index.Value);
+            else if (lnode != null) arguments.Add(lnode);
+
+            return arguments.ToArray();
         }
     }
 }

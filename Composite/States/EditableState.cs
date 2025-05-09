@@ -15,7 +15,7 @@ namespace Composite.States
                 elementNode.Children.Add(node);
         }
 
-        public override void AddChild(int index, LightNode node)
+        public override void AddChildByIndex(int index, LightNode node)
         {
             if (Node is LightElementNode elementNode)
                 elementNode.Children.Insert(index, node);
@@ -39,7 +39,7 @@ namespace Composite.States
                 elementNode.Children.Remove(node);
         }
 
-        public override void RemoveChild(int index)
+        public override void RemoveChildByIndex(int index)
         {
             if (Node is LightElementNode elementNode)
                 elementNode.Children.RemoveAt(index);

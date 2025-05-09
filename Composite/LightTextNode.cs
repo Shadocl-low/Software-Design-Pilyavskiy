@@ -18,6 +18,10 @@ namespace Composite
         }
         public override string OuterHTML(int indentLevel = 0) => new string(' ', indentLevel * 4) + TextContent;
         public override string InnerHTML => TextContent;
-        public void SetTextContent(string text) => State.SetTextContent(text);
+        public override void SetTextContent(string text) => State.SetTextContent(text);
+        public override string ToString()
+        {
+            return $"Text - {TextContent}";
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Composite.Enums;
 using Composite;
+using Composite.States;
 
 var div = new LightElementNode("div", DisplayType.Block, ClosingType.Paired);
 
@@ -54,3 +55,26 @@ div.AddChild(a);
 
 // Вивід
 Console.WriteLine(div.OuterHTML());
+
+
+// Випробовування стейтів
+Console.WriteLine("\nState: ReadOnly");
+div.SetReadOnlyState();
+div.AddClass("container");
+Console.WriteLine(div);
+
+Console.WriteLine("\nState: Editable");
+div.SetEditableState();
+div.AddClass("container");
+Console.WriteLine(div);
+div.RemoveClass("container");
+
+Console.WriteLine("\nState: Locked(Not Admin)");
+div.SetLockedState(new User("Basic", "123"));
+div.AddClass("container");
+Console.WriteLine(div);
+
+Console.WriteLine("\nState: Locked(As Admin)");
+div.SetLockedState(new User("Admin", "SuperPassword"));
+div.AddClass("container");
+Console.WriteLine(div);

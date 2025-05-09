@@ -11,37 +11,37 @@ namespace Composite.States
         public ReadOnlyState(LightNode node) : base(node) { }
         public override void AddChild(LightNode node) 
         {
-            WriteError($"Node is read-only. Cannot add child.");
+            WriteColoredMessage($"Node is read-only. Cannot add child.", ErrorColor);
         }
 
-        public override void AddChild(int index, LightNode node)
+        public override void AddChildByIndex(int index, LightNode node)
         {
-            WriteError($"Node is read-only. Cannot add child with id.");
+            WriteColoredMessage($"Node is read-only. Cannot add child with id.", ErrorColor);
         }
 
         public override void AddClass(string className)
         {
-            WriteError($"Node is read-only. Cannot add class.");
+            WriteColoredMessage($"Node is read-only. Cannot add class.", ErrorColor);
         }
 
         public override void RemoveClass(string className)
         {
-            WriteError($"Node is read-only. Cannot remove class.");
+            WriteColoredMessage($"Node is read-only. Cannot remove class.", ErrorColor);
         }
 
         public override void RemoveChild(LightNode node)
         {
-            WriteError($"Node is read-only. Cannot remove child.");
+            WriteColoredMessage($"Node is read-only. Cannot remove child.", ErrorColor);
         }
 
-        public override void RemoveChild(int index)
+        public override void RemoveChildByIndex(int index)
         {
-            WriteError($"Node is read-only. Cannot remove child with id.");
+            WriteColoredMessage($"Node is read-only. Cannot remove child with id.", ErrorColor);
         }
 
         public override void SetTextContent(string text)
         {
-            WriteError($"Node is read-only. Cannot set text content.");
+            WriteColoredMessage($"Node is read-only. Cannot set text content.", ErrorColor);
         }
     }
 }
