@@ -20,7 +20,7 @@ namespace Composite
         {
             State = state;
         }
-        protected void SetState(EditState state)
+        public void SetState(EditState state)
         {
             State = state;
         }

@@ -19,30 +19,12 @@ namespace Composite
             Children = new List<LightNode>();
         }
 
-        public void AddClass(string className)
-        {
-            State.AddClass(className);
-        }
-        public void RemoveClass(string className)
-        {
-            State.RemoveClass(className);
-        }
-        public void AddChild(LightNode node)
-        {
-            State.AddChild(node);
-        }
-        public void AddChild(int index, LightNode node)
-        {
-            State.AddChild(index, node);
-        }
-        public void RemoveChild(LightNode node)
-        {
-            State.RemoveChild(node);
-        }
-        public void RemoveChild(int index)
-        {
-            State.RemoveChild(index);
-        }
+        public void AddClass(string className) => State.AddClass(className);
+        public void RemoveClass(string className) => State.RemoveClass(className);
+        public void AddChild(LightNode node) => State.AddChild(node);
+        public void AddChild(int index, LightNode node) => State.AddChild(index, node);
+        public void RemoveChild(LightNode node) => State.RemoveChild(node);
+        public void RemoveChild(int index) => State.RemoveChild(index);
 
         public int ChildCount => Children.Count;
 

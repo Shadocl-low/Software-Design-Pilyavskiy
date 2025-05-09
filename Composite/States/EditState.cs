@@ -22,5 +22,11 @@ namespace Composite.States
         public abstract void RemoveChild(LightNode node);
         public abstract void RemoveChild(int index);
         public abstract void SetTextContent(string text);
+        protected void WriteError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
     }
 }
