@@ -8,23 +8,23 @@ namespace Composite.Commands
 {
     public class AddNodeCommand : ICommand
     {
-        private List<LightNode> _container;
-        private LightNode _node;
+        private List<LightNode> Nodes;
+        private LightNode Node;
 
-        public AddNodeCommand(List<LightNode> container, LightNode node)
+        public AddNodeCommand(List<LightNode> nodes, LightNode node)
         {
-            _container = container;
-            _node = node;
+            Nodes = nodes;
+            Node = node;
         }
 
         public void Execute()
         {
-            _container.Add(_node);
+            Nodes.Add(Node);
         }
 
         public void Undo()
         {
-            _container.Remove(_node);
+            Nodes.Remove(Node);
         }
     }
 }

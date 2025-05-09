@@ -8,26 +8,26 @@ namespace Composite.Commands
 {
     public class ReplaceTextCommand : ICommand
     {
-        private LightTextNode _node;
-        private string _newText;
-        private string _oldText;
+        private LightTextNode Node;
+        private string NewText;
+        private string OldText;
 
         public ReplaceTextCommand(LightTextNode node, string newText)
         {
-            _node = node;
-            _newText = newText;
-            _oldText = string.Empty;
+            Node = node;
+            NewText = newText;
+            OldText = string.Empty;
         }
 
         public void Execute()
         {
-            _oldText = _node.TextContent;
-            _node.SetTextContent(_newText);
+            OldText = Node.TextContent;
+            Node.SetTextContent(NewText);
         }
 
         public void Undo()
         {
-            _node.SetTextContent(_oldText);
+            Node.SetTextContent(OldText);
         }
     }
 }

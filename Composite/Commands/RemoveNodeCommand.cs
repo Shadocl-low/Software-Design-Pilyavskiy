@@ -8,25 +8,25 @@ namespace Composite.Commands
 {
     public class RemoveNodeCommand : ICommand
     {
-        private List<LightNode> _container;
-        private LightNode _node;
-        private int _index;
+        private List<LightNode> Nodes;
+        private LightNode Node;
+        private int Index;
 
-        public RemoveNodeCommand(List<LightNode> container, LightNode node)
+        public RemoveNodeCommand(List<LightNode> nodes, LightNode node)
         {
-            _container = container;
-            _node = node;
+            Nodes = nodes;
+            Node = node;
         }
 
         public void Execute()
         {
-            _index = _container.IndexOf(_node);
-            if (_index >= 0) _container.RemoveAt(_index);
+            Index = Nodes.IndexOf(Node);
+            if (Index >= 0) Nodes.RemoveAt(Index);
         }
 
         public void Undo()
         {
-            _container.Insert(_index, _node);
+            Nodes.Insert(Index, Node);
         }
     }
 }
