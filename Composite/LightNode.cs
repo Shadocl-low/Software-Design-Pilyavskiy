@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Composite.States;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,18 @@ namespace Composite
     {
         public abstract string OuterHTML(int indentLevel = 0);
         public abstract string InnerHTML { get; }
+        protected EditState State;
+        protected LightNode()
+        {
+            State = new EditableState(this);
+        }
+        protected LightNode(EditState state)
+        {
+            State = state;
+        }
+        protected void SetState(EditState state)
+        {
+            State = state;
+        }
     }
 }

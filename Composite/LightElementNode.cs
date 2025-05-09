@@ -7,10 +7,10 @@ namespace Composite
         private string TagName { get; }
         private DisplayType Display { get; }
         private ClosingType Closing { get; }
-        private List<string> CssClasses { get; }
-        private List<LightNode> Children { get; }
+        public List<string> CssClasses { get; }
+        public List<LightNode> Children { get; }
 
-        public LightElementNode(string tagName, DisplayType display, ClosingType closing)
+        public LightElementNode(string tagName, DisplayType display, ClosingType closing) : base()
         {
             TagName = tagName;
             Display = display;
@@ -21,12 +21,27 @@ namespace Composite
 
         public void AddClass(string className)
         {
-            CssClasses.Add(className);
+            State.AddClass(className);
         }
-
+        public void RemoveClass(string className)
+        {
+            State.RemoveClass(className);
+        }
         public void AddChild(LightNode node)
         {
-            Children.Add(node);
+            State.AddChild(node);
+        }
+        public void AddChild(int index, LightNode node)
+        {
+            State.AddChild(index, node);
+        }
+        public void RemoveChild(LightNode node)
+        {
+            State.RemoveChild(node);
+        }
+        public void RemoveChild(int index)
+        {
+            State.RemoveChild(index);
         }
 
         public int ChildCount => Children.Count;

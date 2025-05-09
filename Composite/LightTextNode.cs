@@ -10,13 +10,17 @@ namespace Composite
 {
     public class LightTextNode : LightNode
     {
-        private string TextContent { get; }
+        public string TextContent { get; set; }
 
-        public LightTextNode(string text)
+        public LightTextNode(string text) : base()
         {
             TextContent = text;
         }
         public override string OuterHTML(int indentLevel = 0) => new string(' ', indentLevel * 4) + TextContent;
         public override string InnerHTML => TextContent;
+        public void SetTextContent(string text)
+        {
+            State.SetTextContent(text);
+        }
     }
 }
