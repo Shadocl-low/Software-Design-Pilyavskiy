@@ -17,6 +17,11 @@ namespace Composite
             var command = new AddNodeCommand(Container, node);
             ExecuteCommand(command);
         }
+        public void AddClass(LightElementNode element, string className)
+        {
+            var command = new AddClassCommand(element, className);
+            ExecuteCommand(command);
+        }
         public void RemoveNode(LightNode node)
         {
             var command = new RemoveNodeCommand(Container, node);

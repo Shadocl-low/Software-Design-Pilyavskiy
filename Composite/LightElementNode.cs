@@ -23,6 +23,14 @@ namespace Composite
         {
             CssClasses.Add(className);
         }
+        public void RemoveClass(string className)
+        {
+            CssClasses.Remove(className);
+        }
+        public bool ContainsClass(string className)
+        {
+            return CssClasses.Contains(className);
+        }
 
         public void AddChild(LightNode node)
         {

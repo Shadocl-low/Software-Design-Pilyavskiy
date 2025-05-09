@@ -1,7 +1,9 @@
 ﻿using Composite.Enums;
 using Composite;
 
-var div = new LightElementNode("div", DisplayType.Block, ClosingType.Paired);
+var dom = new DomEditor();
+
+dom.AddNode(new LightElementNode("div", DisplayType.Block, ClosingType.Paired));
 
 var table = new LightElementNode("table", DisplayType.Block, ClosingType.Paired);
 table.AddClass("data-table");
