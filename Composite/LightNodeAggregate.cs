@@ -9,6 +9,6 @@ namespace Composite
 {
     public interface LightNodeAggregate : IEnumerable
     {
-        public new IEnumerator GetEnumerator();
+        public new abstract IEnumerator GetEnumerator();
     }
 }

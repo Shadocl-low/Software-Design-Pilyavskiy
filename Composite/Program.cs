@@ -54,3 +54,18 @@ div.AddChild(a);
 
 // Вивід
 Console.WriteLine(div.OuterHTML());
+
+// Ітерування
+Console.WriteLine("\nBFS:");
+foreach (var node in div)
+{
+    Console.WriteLine(node);
+}
+
+Console.WriteLine("\nDFS:");
+div.SetDepthFirstEnumerator();
+
+foreach (var node in div)
+{
+    Console.WriteLine(node);
+}

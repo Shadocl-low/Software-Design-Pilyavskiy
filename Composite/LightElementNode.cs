@@ -1,5 +1,6 @@
 ﻿using Composite.Enums;
 using Composite.Iterators;
+using System;
 using System.Collections;
 
 namespace Composite
@@ -11,6 +12,7 @@ namespace Composite
         private ClosingType Closing { get; }
         private List<string> CssClasses { get; }
         private List<LightNode> Children { get; }
+        private LightNodeIterator? Iterator { get; set; }
 
         public LightElementNode(string tagName, DisplayType display, ClosingType closing)
         {
@@ -19,6 +21,8 @@ namespace Composite
             Closing = closing;
             CssClasses = new List<string>();
             Children = new List<LightNode>();
+
+            SetBreadthFirstEnumerator();
         }
 
         public void AddClass(string className)
@@ -53,15 +57,25 @@ namespace Composite
 
             return $"{indent}{openingTag}\n{childrenHTML}\n{indent}{closingTag}";
         }
-        public IEnumerator GetEnumerator() => GetDepthFirstEnumerator();
-        public IEnumerator GetDepthFirstEnumerator()
+        public IEnumerator GetEnumerator() => Iterator!;
+        public void SetDepthFirstEnumerator()
         {
-            return new DepthFirstIterator(this);
+            Iterator = new DepthFirstIterator(this);
         }
-        public IEnumerator GetBreadthFirstEnumerator()
+        public void SetBreadthFirstEnumerator()
         {
-            return new BreadthFirstIterator(this);
+            Iterator = new BreadthFirstIterator(this);
         }
         public LightNode GetChild(int index) => Children[index];
+
+        public override string ToString()
+        {
+            string classString = CssClasses.Count > 0 ? $" class=\"{string.Join(" ", CssClasses)}\"" : "";
+
+            string openingTag = $"<{TagName}{classString}>";
+            string closingTag = $"</{TagName}>";
+
+            return $"{openingTag}{closingTag}";
+        }
     }
 }
