@@ -1,5 +1,6 @@
 ﻿using Composite.Enums;
 using Composite;
+using Composite.Visitors;
 
 var div = new LightElementNode("div", DisplayType.Block, ClosingType.Paired);
 
@@ -54,3 +55,9 @@ div.AddChild(a);
 
 // Вивід
 Console.WriteLine(div.OuterHTML());
+
+// Статистика
+var statistics = new StatisticsVisitor();
+div.Accept(statistics);
+
+statistics.WriteConsoleStatistics();

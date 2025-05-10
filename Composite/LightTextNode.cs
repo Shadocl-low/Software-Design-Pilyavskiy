@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Composite.Visitors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -18,5 +19,9 @@ namespace Composite
         }
         public override string OuterHTML(int indentLevel = 0) => new string(' ', indentLevel * 4) + TextContent;
         public override string InnerHTML => TextContent;
+        public override void Accept(ILightNodeVisitor visitor)
+        {
+            visitor.VisitText(this);
+        }
     }
 }

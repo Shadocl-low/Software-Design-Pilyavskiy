@@ -1,14 +1,15 @@
 ﻿using Composite.Enums;
+using Composite.Visitors;
 
 namespace Composite
 {
     public class LightElementNode : LightNode
     {
-        private string TagName { get; }
+        public string TagName { get; }
         private DisplayType Display { get; }
         private ClosingType Closing { get; }
-        private List<string> CssClasses { get; }
-        private List<LightNode> Children { get; }
+        public List<string> CssClasses { get; }
+        public List<LightNode> Children { get; }
 
         public LightElementNode(string tagName, DisplayType display, ClosingType closing)
         {
@@ -50,6 +51,10 @@ namespace Composite
             string childrenHTML = string.Join("\n", Children.Select(child => child.OuterHTML(indentLevel + 1)));
 
             return $"{indent}{openingTag}\n{childrenHTML}\n{indent}{closingTag}";
+        }
+        public override void Accept(ILightNodeVisitor visitor)
+        {
+            visitor.VisitElement(this);
         }
     }
 }
