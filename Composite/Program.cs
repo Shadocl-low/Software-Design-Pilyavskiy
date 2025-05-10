@@ -54,3 +54,11 @@ div.AddChild(a);
 
 // Вивід
 Console.WriteLine(div.OuterHTML());
+
+// Симуляція життєвого циклу
+Console.WriteLine($"\nFull LifeCycle:");
+dataRow.LifeCycle();
+
+// Видалення
+Console.WriteLine($"\nOnRemoved:");
+dataRow.OnRemoved();

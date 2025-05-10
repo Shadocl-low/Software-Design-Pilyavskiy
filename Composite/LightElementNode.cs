@@ -51,5 +51,35 @@ namespace Composite
 
             return $"{indent}{openingTag}\n{childrenHTML}\n{indent}{closingTag}";
         }
+
+        protected override void OnCreated()
+        {
+            Console.WriteLine($"Element <{TagName}> created.");
+        }
+
+        protected override void OnClassListApplied()
+        {
+            if (CssClasses.Count > 0)
+            {
+                Console.WriteLine($"Class list applied to <{TagName}>: {string.Join(" ", CssClasses)}");
+            }
+        }
+
+        protected override void OnChildrenInitialized()
+        {
+            foreach (var child in Children)
+            {
+                child.LifeCycle();
+            }
+        }
+
+        public override void OnRemoved()
+        {
+            Console.WriteLine($"Element <{TagName}> removed.");
+            foreach (var child in Children)
+            {
+                child.OnRemoved();
+            }
+        }
     }
 }

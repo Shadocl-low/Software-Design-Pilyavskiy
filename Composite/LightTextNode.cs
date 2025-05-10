@@ -18,5 +18,15 @@ namespace Composite
         }
         public override string OuterHTML(int indentLevel = 0) => new string(' ', indentLevel * 4) + TextContent;
         public override string InnerHTML => TextContent;
+
+        protected override void OnCreated()
+        {
+            Console.WriteLine($"Text node created: \"{TextContent}\"");
+        }
+
+        public override void OnRemoved()
+        {
+            Console.WriteLine($"Text node removed: \"{TextContent}\"");
+        }
     }
 }
