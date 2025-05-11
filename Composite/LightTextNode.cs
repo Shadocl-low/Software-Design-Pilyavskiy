@@ -25,5 +25,15 @@ namespace Composite
             return $"Text - {TextContent}";
         }
         public override void SetTextContent(string text) => State.SetTextContent(text);
+
+        protected override void OnCreated()
+        {
+            Console.WriteLine($"Text node created: \"{TextContent}\"");
+        }
+
+        public override void OnRemoved()
+        {
+            Console.WriteLine($"Text node removed: \"{TextContent}\"");
+        }
     }
 }

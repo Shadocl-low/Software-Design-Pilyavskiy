@@ -45,5 +45,28 @@ namespace Composite
         public virtual void RemoveChild(LightNode node) { }
         public virtual void RemoveChildByIndex(int index) { }
         public virtual void SetTextContent(string text) { }
+
+        public void LifeCycle()
+        {
+            OnBeforeCreated();
+            OnCreated();
+            OnClassListApplied();
+            OnChildrenInitialized();
+            OnAfterCreated();
+        }
+
+        protected void OnBeforeCreated() 
+        {
+            Console.WriteLine($"New LightNode element will be created");
+        }
+        protected virtual void OnCreated() { }
+        protected virtual void OnClassListApplied() { }
+        protected virtual void OnChildrenInitialized() { }
+        protected void OnAfterCreated()
+        {
+            Console.WriteLine($"New LightNode element was created");
+        }
+
+        public virtual void OnRemoved() { }
     }
 }

@@ -130,3 +130,11 @@ Console.WriteLine("\nState: Locked(As Admin)");
 div.SetLockedState(new User("Admin", "SuperPassword"));
 DomEditor.AddClass(div, "container");
 Console.WriteLine(div);
+
+// Симуляція життєвого циклу
+Console.WriteLine($"\nFull LifeCycle:");
+dataRow.LifeCycle();
+
+// Видалення
+Console.WriteLine($"\nOnRemoved:");
+dataRow.OnRemoved();
