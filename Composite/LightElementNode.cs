@@ -9,11 +9,11 @@ namespace Composite
         private string TagName { get; }
         private DisplayType Display { get; }
         private ClosingType Closing { get; }
-        private List<string> CssClasses { get; }
-        private List<LightNode> Children { get; }
+        public List<string> CssClasses { get; }
+        public List<LightNode> Children { get; }
         private LightNodeIterator? Iterator { get; set; }
 
-        public LightElementNode(string tagName, DisplayType display, ClosingType closing)
+        public LightElementNode(string tagName, DisplayType display, ClosingType closing) : base()
         {
             TagName = tagName;
             Display = display;
@@ -26,38 +26,20 @@ namespace Composite
             DomEditor.AddNode(this);
         }
 
-        public void AddClass(string className)
-        {
-            CssClasses.Add(className);
-        }
-        public void RemoveClass(string className)
-        {
-            CssClasses.Remove(className);
-        }
         public bool ContainsClass(string className)
         {
             return CssClasses.Contains(className);
-        }
-        public void AddChild(LightNode node)
-        {
-            Children.Add(node);
-        }
-        public void AddChild(int index, LightNode node)
-        {
-            Children.Insert(index, node);
-        }
-        public void RemoveChild(LightNode node)
-        {
-            Children.Remove(node);
-        }
-        public void RemoveChild(int index)
-        {
-            Children.RemoveAt(index);
         }
         public int IndexOfChild(LightNode node)
         {
             return Children.IndexOf(node);
         }
+        public override void AddClass(string className) => State.AddClass(className);
+        public override void RemoveClass(string className) => State.RemoveClass(className);
+        public override void AddChild(LightNode node) => State.AddChild(node);
+        public override void AddChildByIndex(int index, LightNode node) => State.AddChildByIndex(index, node);
+        public override void RemoveChild(LightNode node) => State.RemoveChild(node);
+        public override void RemoveChildByIndex(int index) => State.RemoveChildByIndex(index);
 
         public int ChildCount => Children.Count;
 

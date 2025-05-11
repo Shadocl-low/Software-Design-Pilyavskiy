@@ -44,7 +44,7 @@ namespace Composite.Commands
 
             if (ParentElement != null && ChildIndex >= 0)
             {
-                ParentElement.RemoveChild(ChildIndex);
+                ParentElement.RemoveChildByIndex(ChildIndex);
             }
         }
 
@@ -57,7 +57,7 @@ namespace Composite.Commands
 
             if (ParentElement != null && ChildIndex >= 0)
             {
-                ParentElement.AddChild(ChildIndex, Node);
+                ParentElement.AddChildByIndex(ChildIndex, Node);
             }
         }
         public override string ToString()
