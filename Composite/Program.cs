@@ -4,53 +4,84 @@ using Composite;
 var div = new LightElementNode("div", DisplayType.Block, ClosingType.Paired);
 
 var table = new LightElementNode("table", DisplayType.Block, ClosingType.Paired);
-table.AddClass("data-table");
+DomEditor.AddClass(table, "data-table");
 
 // Заголовок таблиці
 var headerRow = new LightElementNode("tr", DisplayType.Block, ClosingType.Paired);
 
 var th1 = new LightElementNode("th", DisplayType.Inline, ClosingType.Paired);
-th1.AddChild(new LightTextNode("Name"));
+DomEditor.AppendChild(th1, new LightTextNode("Name"));
 
 var th2 = new LightElementNode("th", DisplayType.Inline, ClosingType.Paired);
-th2.AddChild(new LightTextNode("Age"));
+DomEditor.AppendChild(th2, new LightTextNode("Age"));
 
-headerRow.AddChild(th1);
-headerRow.AddChild(th2);
-table.AddChild(headerRow);
+DomEditor.AppendChild(headerRow, th1);
+DomEditor.AppendChild(headerRow, th2);
+DomEditor.AppendChild(table, headerRow);
 
 // Рядок з даними
 var dataRow = new LightElementNode("tr", DisplayType.Block, ClosingType.Paired);
 
 var td1 = new LightElementNode("td", DisplayType.Inline, ClosingType.Paired);
-td1.AddChild(new LightTextNode("Alice"));
+DomEditor.AppendChild(td1, new LightTextNode("Alice"));
 
 var td2 = new LightElementNode("td", DisplayType.Inline, ClosingType.Paired);
-td2.AddChild(new LightTextNode("30"));
-td2.AddClass("age-td");
+DomEditor.AppendChild(td2, new LightTextNode("30"));
+DomEditor.AddClass(td2, "age-td");
 
-dataRow.AddChild(td1);
-dataRow.AddChild(td2);
-table.AddChild(dataRow);
+DomEditor.AppendChild(dataRow, td1);
+DomEditor.AppendChild(dataRow, td2);
+DomEditor.AppendChild(table, dataRow);
 
 // Ще один рядок
 var dataRow2 = new LightElementNode("tr", DisplayType.Block, ClosingType.Paired);
 var td3 = new LightElementNode("td", DisplayType.Inline, ClosingType.Paired);
-td3.AddChild(new LightTextNode("Bob"));
+DomEditor.AppendChild(td3, new LightTextNode("Bob"));
 
 var td4 = new LightElementNode("td", DisplayType.Inline, ClosingType.Paired);
-td4.AddChild(new LightTextNode("25"));
-td4.AddClass("age-td");
+DomEditor.AppendChild(td4, new LightTextNode("25"));
+DomEditor.AddClass(td4, "age-td");
 
-dataRow2.AddChild(td3);
-dataRow2.AddChild(td4);
-table.AddChild(dataRow2);
+DomEditor.AppendChild(dataRow2, td3);
+DomEditor.AppendChild(dataRow2, td4);
+DomEditor.AppendChild(table, dataRow2);
 
 var a = new LightElementNode("a", DisplayType.Block, ClosingType.SelfClosing);
-a.AddClass("active");
+DomEditor.AddClass(a, "active");
 
-div.AddChild(table);
-div.AddChild(a);
+DomEditor.AppendChild(div, table);
+DomEditor.AppendChild(div, a);
+
+// Перевірка роботи нових методів DOM
+var container = new LightElementNode("div", DisplayType.Block, ClosingType.Paired);
+DomEditor.AppendChild(div, container);
+
+var span = new LightElementNode("span", DisplayType.Inline, ClosingType.Paired);
+DomEditor.AppendChild(container, span);
+
+var p = new LightElementNode("p", DisplayType.Inline, ClosingType.Paired);
+var p_text = new LightTextNode("Regular Text");
+DomEditor.AppendChild(p, p_text);
+
+DomEditor.AppendChild(span, p);
+
+DomEditor.ReplaceText(p_text, "Uncommon Text");
+
+DomEditor.ReplaceText(p_text, "NEW Text");
+
+DomEditor.Undo();
+
+DomEditor.RemoveNode(span);
+
+DomEditor.Undo();
+
+DomEditor.RemoveNode(p);
+DomEditor.RemoveNode(container);
+
+DomEditor.Undo();
+DomEditor.Undo();
+
+DomEditor.ReplaceText(p_text, "NEW Text");
 
 // Вивід
 Console.WriteLine(div.OuterHTML());
@@ -69,3 +100,7 @@ foreach (var node in div)
 {
     Console.WriteLine(node);
 }
+
+CommandsHistory.ShowHistoryConsole();
+
+DomEditor.ShowAllTagsInDomConsole();

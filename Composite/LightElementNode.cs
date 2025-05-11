@@ -1,6 +1,5 @@
 ﻿using Composite.Enums;
 using Composite.Iterators;
-using System;
 using System.Collections;
 
 namespace Composite
@@ -23,16 +22,41 @@ namespace Composite
             Children = new List<LightNode>();
 
             SetBreadthFirstEnumerator();
+
+            DomEditor.AddNode(this);
         }
 
         public void AddClass(string className)
         {
             CssClasses.Add(className);
         }
-
+        public void RemoveClass(string className)
+        {
+            CssClasses.Remove(className);
+        }
+        public bool ContainsClass(string className)
+        {
+            return CssClasses.Contains(className);
+        }
         public void AddChild(LightNode node)
         {
             Children.Add(node);
+        }
+        public void AddChild(int index, LightNode node)
+        {
+            Children.Insert(index, node);
+        }
+        public void RemoveChild(LightNode node)
+        {
+            Children.Remove(node);
+        }
+        public void RemoveChild(int index)
+        {
+            Children.RemoveAt(index);
+        }
+        public int IndexOfChild(LightNode node)
+        {
+            return Children.IndexOf(node);
         }
 
         public int ChildCount => Children.Count;
@@ -72,10 +96,7 @@ namespace Composite
         {
             string classString = CssClasses.Count > 0 ? $" class=\"{string.Join(" ", CssClasses)}\"" : "";
 
-            string openingTag = $"<{TagName}{classString}>";
-            string closingTag = $"</{TagName}>";
-
-            return $"{openingTag}{closingTag}";
+            return $"Element - {TagName}{classString}";
         }
     }
 }
