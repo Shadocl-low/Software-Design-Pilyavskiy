@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Composite.Visitors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -34,6 +35,10 @@ namespace Composite
         public override void OnRemoved()
         {
             Console.WriteLine($"Text node removed: \"{TextContent}\"");
+        }
+        public override void Accept(ILightNodeVisitor visitor)
+        {
+            visitor.VisitText(this);
         }
     }
 }

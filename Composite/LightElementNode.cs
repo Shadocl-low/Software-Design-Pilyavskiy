@@ -1,4 +1,5 @@
 ﻿using Composite.Enums;
+using Composite.Visitors;
 using Composite.Iterators;
 using System.Collections;
 
@@ -6,7 +7,7 @@ namespace Composite
 {
     public class LightElementNode : LightNode, LightNodeAggregate
     {
-        private string TagName { get; }
+        public string TagName { get; }
         private DisplayType Display { get; }
         private ClosingType Closing { get; }
         public List<string> CssClasses { get; }
@@ -109,6 +110,10 @@ namespace Composite
             {
                 child.OnRemoved();
             }
+        }
+        public override void Accept(ILightNodeVisitor visitor)
+        {
+            visitor.VisitElement(this);
         }
     }
 }

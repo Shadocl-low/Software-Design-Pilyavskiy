@@ -1,6 +1,7 @@
 ﻿using Composite.Enums;
 using Composite;
 using Composite.States;
+using Composite.Visitors;
 
 var div = new LightElementNode("div", DisplayType.Block, ClosingType.Paired);
 
@@ -138,3 +139,9 @@ dataRow.LifeCycle();
 // Видалення
 Console.WriteLine($"\nOnRemoved:");
 dataRow.OnRemoved();
+
+// Статистика
+var statistics = new StatisticsVisitor();
+div.Accept(statistics);
+
+statistics.WriteConsoleStatistics();

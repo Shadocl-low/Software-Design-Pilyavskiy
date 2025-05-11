@@ -1,4 +1,5 @@
-﻿using Composite.States;
+﻿using Composite.Visitors;
+using Composite.States;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -68,5 +69,6 @@ namespace Composite
         }
 
         public virtual void OnRemoved() { }
+        public abstract void Accept(ILightNodeVisitor visitor);
     }
 }
